@@ -99,6 +99,17 @@ class BaseListingData(BaseModel):
     facing: Optional[str]
     amenities: Optional[str]
 
+class BaseListingDataupdate(BaseModel):
+    property_type: PropertyType
+    listing_type: ListingType
+    keywords: Optional[str]
+    locality: str
+    city: str
+    price: str
+    area: int
+    area_unit: str
+    amenities: Optional[str]
+
 
 class ResidentialListingData(BaseListingData):
     property_type: ResidentialPropertyType
@@ -111,7 +122,7 @@ class ResidentialListingData(BaseListingData):
     floor_number: Optional[int]
     total_floor_count: Optional[int]
 
-class ResidentialListingDataupdated(BaseListingData):
+class ResidentialListingDataupdated(BaseListingDataupdate):
     property_type: ResidentialPropertyType
     furnishing: str
     project: Optional[str]
@@ -131,7 +142,7 @@ class LandListingData(BaseListingData):
     property_type: LandPropertyType
     plot_number: Optional[str]
 
-class LandListingDataupdated(BaseListingData):
+class LandListingDataupdated(BaseListingDataupdate):
     property_type: LandPropertyType
     # plot_number: Optional[str]
 
@@ -146,7 +157,7 @@ class OfficeSpaceListingData(BaseListingData):
     floor_number: Optional[int]
     total_floor_count: Optional[int]
 
-class OfficeSpaceListingDataupdated(BaseListingData):
+class OfficeSpaceListingDataupdated(BaseListingDataupdate):
     property_type: OfficeSpacePropertyType
     project: Optional[str]
     furnishing: str
@@ -162,7 +173,7 @@ class CommercialListingData(BaseListingData):
     parking: Optional[int]
     floor_number: Optional[int]
 
-class CommercialListingDataupdated(BaseListingData):
+class CommercialListingDataupdated(BaseListingDataupdate):
     property_type: CommercialPropertyType
     project: Optional[str]
     furnishing: Optional[str]
