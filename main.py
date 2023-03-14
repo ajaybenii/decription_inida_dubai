@@ -48,32 +48,32 @@ async def generate_payingguest_description(payingguest_listing_data: PayingGuest
     Generates descriptions for residential property types
     """
     req_body = jsonable_encoder(payingguest_listing_data)
-    if len(payingguest_listing_data.locality) and len(payingguest_listing_data.city) >= 2 and payingguest_listing_data.price != 0:
+    # if len(payingguest_listing_data.locality) and len(payingguest_listing_data.city) >= 2 :
         #prepare data for input value 
-        req_body1 = str(req_body).replace("'",'')
-        req_body2 = str(req_body1).replace("{",'')
-        req_body3 = str(req_body2).replace("}",'')
+    req_body1 = str(req_body).replace("'",'')
+    req_body2 = str(req_body1).replace("{",'')
+    req_body3 = str(req_body2).replace("}",'')
 
-        # print("request  =",req_body3)
-       
-        completion = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {"role": "system", "content": str(req_body3)}
-            ]
-            )
+    # print("request  =",req_body3)
+    
+    completion = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": str(req_body3)}
+        ]
+        )
 
 
-        get_content = dict(completion.choices[0].message)
-        result = (str(get_content['content']))     
-        final_result1= result.replace("\n",'')
+    get_content = dict(completion.choices[0].message)
+    result = (str(get_content['content']))     
+    final_result1= result.replace("\n",'')
 
-        body_response = re.sub(r"[\([{})\]]", "", final_result1)
-        body_response1 = body_response.replace("?",".")
-        
-        return body_response1      
-    else:
-        return("Error please fill city and locality")
+    body_response = re.sub(r"[\([{})\]]", "", final_result1)
+    body_response1 = body_response.replace("?",".")
+    
+    return body_response1      
+    # else:
+    #     return("Error please fill city and locality")
 '''
 @app.post('/residential_descriptions')
 async def generate_apartment_description(residential_listing_data: ResidentialListingData, format: bool = False):
@@ -127,7 +127,7 @@ async def generate_apartment_des_finetune1(fine_tune_apartment: request_body, fo
     Generates descriptions for Apartment property types
     """
     req_body = jsonable_encoder(fine_tune_apartment)
-    if len(fine_tune_apartment.locality) and len(fine_tune_apartment.city) >= 2 and fine_tune_apartment.price != 0:
+    if len(fine_tune_apartment.locality) and len(fine_tune_apartment.city) >= 2:
         #prepare data for input value 
         req_body1 = str(req_body).replace("'",'')
         req_body2 = str(req_body1).replace("{",'')
@@ -161,7 +161,7 @@ async def land_description(land_listing_data: LandListingData, format: bool = Fa
     """
     
     req_body = jsonable_encoder(land_listing_data)
-    if len(land_listing_data.locality) and len(land_listing_data.city) >= 2 and land_listing_data.price != 0:
+    if len(land_listing_data.locality) and len(land_listing_data.city) >= 2:
         #prepare data for input value 
         req_body1 = str(req_body).replace("'",'')
         req_body2 = str(req_body1).replace("{",'')
@@ -196,7 +196,7 @@ async def office_space_description(office_space_data: OfficeSpaceListingData, fo
     """
 
     req_body = jsonable_encoder(office_space_data)
-    if len(office_space_data.locality) and len(office_space_data.city) >= 2 and office_space_data.price != 0:
+    if len(office_space_data.locality) and len(office_space_data.city) >= 2:
         #prepare data for input value 
         req_body1 = str(req_body).replace("'",'')
         req_body2 = str(req_body1).replace("{",'')
@@ -230,7 +230,7 @@ async def generate_land_description(commercial_listing_data: CommercialListingDa
     Generates descriptions for commercial property types
     """   
     req_body = jsonable_encoder(commercial_listing_data)
-    if len(commercial_listing_data.locality) and len(commercial_listing_data.city) >= 2 and commercial_listing_data.price != 0:
+    if len(commercial_listing_data.locality) and len(commercial_listing_data.city) >= 2:
         #prepare data for input value 
         req_body1 = str(req_body).replace("'",'')
         req_body2 = str(req_body1).replace("{",'')
