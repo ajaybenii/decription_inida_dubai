@@ -58,10 +58,10 @@ class ResidentialPropertyType(str, Enum):
     builder_floor = 'builder_floor'
     penthouse = 'penthouse'
     villa = 'villa'
-    duplex = 'duplex'
-    townhouse = 'townhouse'
-    hotel_apartment = "hotel_apartment"
     independent_house = 'independent_house'
+    townhouse = 'townhouse'
+    Residential_building = 'Residential_building'
+    duplex = 'duplex'
 
 class PayingGuestPropertyType(str,Enum):
     pg = 'pg'
@@ -73,16 +73,19 @@ class OfficeSpacePropertyType(str, Enum):
 
 class CommercialPropertyType(str, Enum):
     shop = 'shop'
-    restraunt = 'restraunt'
     showroom = 'showroom'
     warehouse = 'warehouse'
+    restraunt = 'restraunt'
+    factory = 'factory'
+    labour_camp = 'labour_camp'
 
 
 class LandPropertyType(str, Enum):
     land = 'land'
     industrial_plot = 'industrial_plot'
     plot = 'plot'
-
+    commercial_plot = 'commercial_plot'
+    residential_plot = 'residential_plot'
 
 class BaseListingData(BaseModel):
     property_type: PropertyType
