@@ -10,7 +10,7 @@ class request_body(BaseModel):
     keywords: str
     locality: str
     city: str
-    price: int
+    price: str
     area: int
     area_unit: str
     facing: str
@@ -90,7 +90,7 @@ class BaseListingData(BaseModel):
     keywords: Optional[str]
     locality: str
     city: str
-    price: int
+    price: str
     area: int
     area_unit: str
     facing: Optional[str]
