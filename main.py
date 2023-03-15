@@ -38,6 +38,20 @@ load_dotenv()
 
 openai.api_key = os.getenv('openai.api_key')
 
+def format_description(description):
+    """
+    Breaks descriptions into sentences and the creates format with first paragraph,
+    body (bullet points array) and last paragraph
+    """
+    sentences = list(map(str.strip, description.split('. ')[:-1]))
+    sentences = [f'{sentence}.' for sentence in sentences]
+    formatted_description = {
+        'first_paragraph': sentences[0],
+        'body': sentences[1:-1],
+        'last_paragraph': sentences[-1]
+    }
+    return formatted_description
+
 @app.get("/")
 async def root():
     return "Hello World!!!"
@@ -71,7 +85,7 @@ async def generate_payingguest_description(payingguest_listing_data: PayingGuest
     body_response = re.sub(r"[\([{})\]]", "", final_result1)
     body_response1 = body_response.replace("?",".")
     
-    return body_response1      
+    return format_description(body_response1)      
     # else:
     #     return("Error please fill city and locality")
 '''
@@ -149,8 +163,8 @@ async def generate_apartment_des_finetune1(fine_tune_apartment: request_body, fo
 
         body_response = re.sub(r"[\([{})\]]", "", final_result1)
         body_response1 = body_response.replace("?",".")
-        
-        return body_response1      
+        print(type(body_response1))
+        return format_description(body_response1)      
     else:
         return("Error please fill city and locality")
 
@@ -184,7 +198,7 @@ async def land_description(land_listing_data: LandListingData, format: bool = Fa
         body_response = re.sub(r"[\([{})\]]", "", final_result1)
         body_response1 = body_response.replace("?",".")
         
-        return body_response1      
+        return format_description(body_response1)      
     else:
         return("Error please fill city and locality")
 
@@ -219,7 +233,7 @@ async def office_space_description(office_space_data: OfficeSpaceListingData, fo
         body_response = re.sub(r"[\([{})\]]", "", final_result1)
         body_response1 = body_response.replace("?",".")
         
-        return body_response1      
+        return format_description(body_response1)      
     else:
         return("Error please fill city and locality")
 
@@ -253,7 +267,7 @@ async def generate_land_description(commercial_listing_data: CommercialListingDa
         body_response = re.sub(r"[\([{})\]]", "", final_result1)
         body_response1 = body_response.replace("?",".")
         
-        return body_response1      
+        return format_description(body_response1)    
     else:
         return("Error please fill city and locality")
         
@@ -291,9 +305,8 @@ async def generate_apartment_description_dubai(residential_listing_data: Residen
 
         body_response = re.sub(r"[\([{})\]]", "", final_result1)
         body_response1 = body_response.replace("?",".")
-
-        return body_response1
-    
+        
+        return format_description(body_response1)
 
     else:
         return("Error please fill city and locality and price")
@@ -327,9 +340,9 @@ async def land_description_dubai(land_listing_data: LandListingDataupdated, form
 
         body_response = re.sub(r"[\([{})\]]", "", final_result1)
         body_response1 = body_response.replace("?",".")
-        return body_response1      
         
-        # return await generate_description1(land_listing_data, format=format)
+        return format_description(body_response1)      
+        
     else:
         return("Error please fill city and locality")
 
@@ -362,8 +375,9 @@ async def office_space_description_dubai(office_space_data: OfficeSpaceListingDa
 
         body_response = re.sub(r"[\([{})\]]", "", final_result1)
         body_response1 = body_response.replace("?",".")
-        return body_response1        
-        # return await generate_description1(office_space_data, format=format)
+        
+        return format_description(body_response1)      
+        
     else:
         return("Error please fill city and locality")
 
@@ -397,8 +411,9 @@ async def generate_land_description_dubai(commercial_listing_data: CommercialLis
 
         body_response = re.sub(r"[\([{})\]]", "", final_result1)
         body_response1 = body_response.replace("?",".")
-        return body_response1
-        # return await generate_description1(commercial_listing_data, format=format)
+        
+        return format_description(body_response1)
+    
     else:
         return("Error please fill city and locality")
     
